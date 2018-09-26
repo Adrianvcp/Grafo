@@ -5,12 +5,13 @@
 
 
 import pandas as pd
-
+import networkx as nx
+import random
 #Diccionario de nodos y arcos
 
 
 
-def leerInformacion():
+def leerInformacion(Grafo):
     file = 'CPS.xlsx'
     x = pd.ExcelFile(file)
     line1 = pd.read_excel(file) #DataFrame
@@ -24,22 +25,30 @@ def leerInformacion():
 
     line1.set_index(['CODCP'], inplace=True)
     #print(dicc_nodos)
-    GenerarGrafoDiccionario(dicc_nodos,line1)
+    GenerarGrafoDiccionario(dicc_nodos,line1,Grafo)
 
-def GenerarGrafoDiccionario(dicc_nodos,dataXCodigo):
+def GenerarGrafoDiccionario(dicc_nodos,dataXCodigo,Grafo):
     #print(dataXCodigo)
     #print('--------')
     #print(dataXCodigo.loc[683896].Y_X_COORD)
+    print(dicc_nodos)
+    print('----------')
+    print(dataXCodigo)
+    print('----------')
     grafo = {}
     a = 1
     
     for x in dicc_nodos:
         if len(grafo.keys()) == 0: 
             grafo[x] = []
+            Grafo.add_node(x)
              #Nodo con codigo de la ciudad
         elif len(grafo.keys()) == 1: 
             #coordenadas
             #print(grafo)
+            
+            Grafo.add_edges_from(x,)
+            Grafo.add_node(x)
             grafo[grafo.keys()[0]] = [(x,'DISTANCIA')]
             y,x = extraerCoordenadas(dicc_nodos[grafo.keys()[0]][1])
             
@@ -55,21 +64,27 @@ def GenerarGrafoDiccionario(dicc_nodos,dataXCodigo):
             grafo[grafo.keys()[1]] = [(grafo.keys()[0],'DISTANCIA')]
         
         a+=1;
-        print(grafo)
+        print('Grafo---')
+        print(Grafo)
 
 def GenerarGrafoDicci(dicc_nodos,dataXCodigo):
     #print(dataXCodigo)
     #print('--------')
     #print(dataXCodigo.loc[683896].Y_X_COORD)
     grafo = []
-
+    O
     for x in dicc_nodos:
+        nodo = {}
+        
         if len(grafo) == 0: 
-            grafo[x] = []
+            nodo = {}
+            nodo[x] 
+            grafo.append(nodo)
              #Nodo con codigo de la ciudad
         elif len(grafo) == 1: 
             #coordenadas
             #print(grafo)
+            grafo.append()
             grafo[grafo.keys()[0]] = [(x,'DISTANCIA')]
             y,x = extraerCoordenadas(dicc_nodos[grafo.keys()[0]][1])
             
@@ -116,6 +131,10 @@ def extraerCoordenadas(dato):
 
 
 
-leerInformacion()
+G = nx.Graph()
+
+leerInformacion(G)
+
+
 
 #extraerCoordenadas('-13.992029757-72.5312662119999')
